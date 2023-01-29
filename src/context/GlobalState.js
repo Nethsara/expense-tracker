@@ -15,10 +15,18 @@ export const TransactionContext = createContext(initialState);
 export const TransactionProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
+  function deleteTransaction(id) {
+    dispatch({
+      type: "DELETE_TRANSACTION",
+      payload: id,
+    });
+  }
+
   return (
     <TransactionContext.Provider
       value={{
         transactions: state.transactions,
+        deleteTransaction,
       }}
     >
       {children}
